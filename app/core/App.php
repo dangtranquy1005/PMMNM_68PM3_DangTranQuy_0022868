@@ -7,18 +7,17 @@ class App
 
     public function __construct()
     {
-  
-        $urlProcessed = $this->UrlProcess();  
-        var_dump($urlProcessed);
-        if (isset($urlProcessed[0])) {
-            if (file_exists('../app/controllers/' . $urlProcessed[0] . '.php')) {
+        $urlProcessed = $this->UrlProcess();
+        if (isset($urlProcessed[0]) && $urlProcessed[0] !== '') {
+            $controllerFile = __DIR__ . '/../controllers/' . $urlProcessed[0] . '.php';
+            if (file_exists($controllerFile)) {
                 $this->controller = $urlProcessed[0];
                 unset($urlProcessed[0]);
             }
         }
-        require_once '../app/controllers/' . $this->controller . '.php';
-        $this->controller = new $this->controller; //tạo đối tượng controller
-        if (isset($urlProcessed[1])) {
+        require_once __DIR__ . '/../controllers/' . $this->controller . '.php';
+        $this->controller = new $this->controller;
+        if (isset($urlProcessed[1]) && $urlProcessed[1] !== '') {
             if (method_exists($this->controller, $urlProcessed[1])) {
                 $this->action = $urlProcessed[1];
                 unset($urlProcessed[1]);
@@ -31,6 +30,7 @@ class App
         if (isset($_GET['url'])) {
             return explode('/', filter_var(trim($_GET['url'], '/')));
         }
+        return [];
     }
 }
 
