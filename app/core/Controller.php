@@ -6,9 +6,14 @@ class Controller
         require_once '../app/model/' . $model . '.php';
         return new $model();
     }
-    public function view($viewName, $data = [] )
+    public function view($viewName, $data = [], $layout = 'layout/masterlayout')
     {
         extract($data);
-        require_once '../app/view/' . $viewName . '.php';
+        if ($layout) {
+            $viewname = $viewName;
+            require_once '../app/view/' . $layout . '.php';
+        } else {
+            require_once '../app/view/' . $viewName . '.php';
+        }
     }
 }

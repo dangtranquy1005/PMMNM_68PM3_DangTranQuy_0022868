@@ -4,6 +4,6 @@
     if(isset($_COOKIE['username'])) {
         setcookie('username', '', time() - 3600);
     }
-    header('Location: ../app/view/login.php');
+    header('Location: ' . BASE_URL . '/home/login');
     exit();
 ?>

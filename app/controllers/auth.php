@@ -10,10 +10,10 @@
                 $password = $_POST['password'];
                 if (isset($this->user[$username]) && $this->user[$username] === $password) {
                    $_SESSION ['username'] = $username;
-                    header('Location: /home/index');
+                    header('Location: ' . BASE_URL . '/home/index');
                     exit();
                 } else {
-                    header('Location: /home/login');
+                    header('Location: ' . BASE_URL . '/home/login');
                     exit();
                 }
             }

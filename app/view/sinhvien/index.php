@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo isset($title) ? $title : 'Danh sách sinh viên'; ?></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
+<style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f4f7f6;
@@ -27,14 +17,20 @@
             padding: 2rem;
         }
 
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 1rem;
+        }
+
         h1 {
             color: #1a1a1a;
             font-size: 1.75rem;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
+            margin: 0;
             font-weight: 600;
-            border-bottom: 2px solid #edf2f7;
-            padding-bottom: 1rem;
         }
 
         table {
@@ -94,7 +90,17 @@
 
 <body>
     <div class="container">
-        <h1><?php echo isset($title) ? $title : 'Danh sách sinh viên'; ?></h1>
+        <div class="page-header">
+            <h1><?php echo isset($title) ? $title : 'Danh sách sinh viên'; ?></h1>
+            <div style="display: flex; gap: 0.75rem;">
+                <a href="<?php echo BASE_URL; ?>/" style="display: inline-flex; align-items: center; gap: 6px; background-color: #f1f5f9; color: #475569; padding: 0.625rem 1.25rem; border-radius: 8px; font-weight: 500; text-decoration: none; font-size: 0.9rem; border: 1px solid #e2e8f0; transition: all 0.2s;" onmouseover="this.style.background='#e2e8f0'; this.style.color='#0f172a';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#475569';">
+                    🏠 Trang chủ
+                </a>
+                <a href="<?php echo BASE_URL; ?>/sinhvien/create" style="display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #ffffff; padding: 0.625rem 1.25rem; border-radius: 8px; font-weight: 500; text-decoration: none; font-size: 0.9rem; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 6px 12px -2px rgba(37, 99, 235, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(37, 99, 235, 0.2)';">
+                    ➕ Thêm sinh viên
+                </a>
+            </div>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -128,6 +134,3 @@
             </tbody>
         </table>
     </div>
-</body>
-
-</html>
