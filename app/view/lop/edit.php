@@ -58,28 +58,6 @@
         box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     }
 
-    .radio-group {
-        display: flex;
-        gap: 1.5rem;
-        margin-top: 0.5rem;
-    }
-
-    .radio-label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.95rem;
-        color: #334155;
-        cursor: pointer;
-    }
-
-    .radio-input {
-        width: 1.125rem;
-        height: 1.125rem;
-        border: 1px solid #cbd5e1;
-        cursor: pointer;
-    }
-
     .btn-group {
         display: flex;
         gap: 1rem;
@@ -126,50 +104,31 @@
 
 <div class="form-container">
     <div class="form-header">
-        <h2 class="form-title">Thêm Sinh Viên Mới</h2>
-        <p class="form-subtitle">Nhập thông tin chi tiết của sinh viên dưới đây</p>
+        <h2 class="form-title">Cập Nhật Thông Tin Lớp Học</h2>
+        <p class="form-subtitle">Chỉnh sửa thông tin chi tiết của lớp học dưới đây</p>
     </div>
 
-    <form action="<?php echo BASE_URL; ?>/sinhvien/store" method="POST">
+    <!-- Success / Error Alerts -->
+    <?php if (isset($_SESSION['error'])): ?>
+        <div style="background-color: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+            ⚠️ <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+        </div>
+    <?php endif; ?>
+
+    <form action="<?php echo BASE_URL; ?>/lop/update/<?php echo $lop['id']; ?>" method="POST">
         <div class="form-group">
-            <label class="form-label" for="hoten">Họ và Tên</label>
-            <input type="text" id="hoten" name="hoten" class="form-control" placeholder="Ví dụ: Nguyễn Văn A" required autocomplete="off">
+            <label class="form-label" for="tenlop">Tên lớp học</label>
+            <input type="text" id="tenlop" name="tenlop" class="form-control" placeholder="Ví dụ: 68PM3" value="<?php echo htmlspecialchars($lop['tenlop']); ?>" required autocomplete="off">
         </div>
 
         <div class="form-group">
-            <label class="form-label">Giới tính</label>
-            <div class="radio-group">
-                <label class="radio-label">
-                    <input type="radio" name="gioitinh" value="Nam" class="radio-input" checked>
-                    Nam
-                </label>
-                <label class="radio-label">
-                    <input type="radio" name="gioitinh" value="Nữ" class="radio-input">
-                    Nữ
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label" for="mssv">Mã số sinh viên (MSSV)</label>
-            <input type="text" id="mssv" name="mssv" class="form-control" placeholder="Ví dụ: 22868" required autocomplete="off">
-        </div>
-
-        <div class="form-group">
-            <label class="form-label" for="malop">Lớp học</label>
-            <select id="malop" name="malop" class="form-control" style="cursor: pointer;" required>
-                <option value="">-- Chọn lớp học --</option>
-                <?php if (!empty($lops)): ?>
-                    <?php foreach ($lops as $lop): ?>
-                        <option value="<?php echo $lop['id']; ?>"><?php echo htmlspecialchars($lop['tenlop']); ?></option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
+            <label class="form-label" for="mota">Mô tả / Ghi chú</label>
+            <textarea id="mota" name="mota" class="form-control" placeholder="Ví dụ: Lớp Công nghệ phần mềm K68..." rows="4" style="resize: vertical; font-family: inherit;"><?php echo htmlspecialchars($lop['mota'] ?? ''); ?></textarea>
         </div>
 
         <div class="btn-group">
-            <a href="<?php echo BASE_URL; ?>/sinhvien" class="btn btn-back">Hủy bỏ</a>
-            <button type="submit" class="btn btn-submit">Lưu lại</button>
+            <a href="<?php echo BASE_URL; ?>/lop" class="btn btn-back">Hủy bỏ</a>
+            <button type="submit" class="btn btn-submit">Lưu thay đổi</button>
         </div>
     </form>
 </div>

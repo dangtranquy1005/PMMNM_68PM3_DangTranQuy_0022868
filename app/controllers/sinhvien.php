@@ -27,7 +27,12 @@ class sinhvien extends Controller
 
   public function create()
   {
-    $this->view("sinhvien/create", ['title' => 'Thêm sinh viên']);
+    $lopModel = $this->model('LopModel');
+    $lops = $lopModel->getAllLop();
+    $this->view("sinhvien/create", [
+      'title' => 'Thêm sinh viên',
+      'lops' => $lops
+    ]);
   }
 
   public function store()
@@ -36,10 +41,11 @@ class sinhvien extends Controller
       $data = [
         'hoten' => trim($_POST['hoten']),
         'gioitinh' => $_POST['gioitinh'],
-        'mssv' => trim($_POST['mssv'])
+        'mssv' => trim($_POST['mssv']),
+        'malop' => isset($_POST['malop']) ? (int)$_POST['malop'] : 0
       ];
 
-      if (empty($data['hoten']) || empty($data['mssv'])) {
+      if (empty($data['hoten']) || empty($data['mssv']) || empty($data['malop'])) {
         $_SESSION['error'] = "Vui lòng nhập đầy đủ thông tin!";
         header("Location: " . BASE_URL . "/sinhvien/create");
         exit();
@@ -68,8 +74,11 @@ class sinhvien extends Controller
       header("Location: " . BASE_URL . "/sinhvien/index");
       exit();
     }
+    $lopModel = $this->model('LopModel');
+    $lops = $lopModel->getAllLop();
     $this->view("sinhvien/edit", [
       'sinhvien' => $sinhvien,
+      'lops' => $lops,
       'title' => 'Cập nhật sinh viên'
     ]);
   }
@@ -80,10 +89,11 @@ class sinhvien extends Controller
       $data = [
         'hoten' => trim($_POST['hoten']),
         'gioitinh' => $_POST['gioitinh'],
-        'mssv' => trim($_POST['mssv'])
+        'mssv' => trim($_POST['mssv']),
+        'malop' => isset($_POST['malop']) ? (int)$_POST['malop'] : 0
       ];
 
-      if (empty($data['hoten']) || empty($data['mssv'])) {
+      if (empty($data['hoten']) || empty($data['mssv']) || empty($data['malop'])) {
         $_SESSION['error'] = "Vui lòng nhập đầy đủ thông tin!";
         header("Location: " . BASE_URL . "/sinhvien/edit/" . $id);
         exit();

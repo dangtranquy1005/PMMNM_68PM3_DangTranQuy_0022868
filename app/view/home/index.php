@@ -22,6 +22,10 @@
         <a href="<?php echo BASE_URL; ?>/sinhvien" style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #ffffff; padding: 0.875rem 1.5rem; border-radius: 8px; font-weight: 500; text-decoration: none; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px -2px rgba(37, 99, 235, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(37, 99, 235, 0.2)';">
             📂 Quản Lý Sinh Viên
         </a>
+
+        <a href="<?php echo BASE_URL; ?>/lop" style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #ffffff; padding: 0.875rem 1.5rem; border-radius: 8px; font-weight: 500; text-decoration: none; box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.2); transition: all 0.2s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 12px -2px rgba(139, 92, 246, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px -1px rgba(139, 92, 246, 0.2)';">
+            🏫 Quản Lý Lớp Học
+        </a>
         
         <a href="<?php echo BASE_URL; ?>/home/logout" style="display: inline-flex; align-items: center; justify-content: center; background: #f8fafc; color: #64748b; padding: 0.875rem 1.5rem; border-radius: 8px; font-weight: 500; text-decoration: none; border: 1px solid #e2e8f0; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'; this.style.color='#0f172a';" onmouseout="this.style.background='#f8fafc'; this.style.color='#64748b';">
             Đăng xuất

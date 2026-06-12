@@ -9,14 +9,14 @@ class sinhvienModel
     }
     public function getAllSinhVien()
     {
-        $query = "SELECT * FROM tbl_sinhviens";
+        $query = "SELECT sv.*, l.tenlop FROM tbl_sinhviens sv LEFT JOIN tbl_lop l ON sv.malop = l.id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function create($data)
     {
-        $query = "INSERT INTO tbl_sinhviens (hoten, gioitinh, mssv) VALUES (:hoten, :gioitinh, :mssv)";
+        $query = "INSERT INTO tbl_sinhviens (hoten, gioitinh, mssv, malop) VALUES (:hoten, :gioitinh, :mssv, :malop)";
         $stmt = $this->conn->prepare($query);
         if ($stmt->execute($data)) {
             return true;
@@ -28,11 +28,11 @@ class sinhvienModel
     {
         $search = trim($search);
         if (!empty($search)) {
-            $query = "SELECT * FROM tbl_sinhviens WHERE hoten LIKE :search OR mssv LIKE :search LIMIT :limit OFFSET :offset";
+            $query = "SELECT sv.*, l.tenlop FROM tbl_sinhviens sv LEFT JOIN tbl_lop l ON sv.malop = l.id WHERE sv.hoten LIKE :search OR sv.mssv LIKE :search OR l.tenlop LIKE :search LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
         } else {
-            $query = "SELECT * FROM tbl_sinhviens LIMIT :limit OFFSET :offset";
+            $query = "SELECT sv.*, l.tenlop FROM tbl_sinhviens sv LEFT JOIN tbl_lop l ON sv.malop = l.id LIMIT :limit OFFSET :offset";
             $stmt = $this->conn->prepare($query);
         }
         $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
@@ -40,9 +40,9 @@ class sinhvienModel
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        //tính tổng số bản ghi
+         
         if (!empty($search)) {
-            $countQuery = $this->conn->prepare("SELECT COUNT(*) FROM tbl_sinhviens WHERE hoten LIKE :search OR mssv LIKE :search");
+            $countQuery = $this->conn->prepare("SELECT COUNT(*) FROM tbl_sinhviens sv LEFT JOIN tbl_lop l ON sv.malop = l.id WHERE sv.hoten LIKE :search OR sv.mssv LIKE :search OR l.tenlop LIKE :search");
             $countQuery->bindValue(':search', '%' . $search . '%', PDO::PARAM_STR);
             $countQuery->execute();
             $totalRecords = $countQuery->fetchColumn();
@@ -56,7 +56,7 @@ class sinhvienModel
 
     public function getById($id)
     {
-        $query = "SELECT * FROM tbl_sinhviens WHERE id = :id";
+        $query = "SELECT sv.*, l.tenlop FROM tbl_sinhviens sv LEFT JOIN tbl_lop l ON sv.malop = l.id WHERE sv.id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -65,11 +65,12 @@ class sinhvienModel
 
     public function update($id, $data)
     {
-        $query = "UPDATE tbl_sinhviens SET hoten = :hoten, gioitinh = :gioitinh, mssv = :mssv WHERE id = :id";
+        $query = "UPDATE tbl_sinhviens SET hoten = :hoten, gioitinh = :gioitinh, mssv = :mssv, malop = :malop WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':hoten', $data['hoten'], PDO::PARAM_STR);
         $stmt->bindValue(':gioitinh', $data['gioitinh'], PDO::PARAM_STR);
         $stmt->bindValue(':mssv', $data['mssv'], PDO::PARAM_STR);
+        $stmt->bindValue(':malop', $data['malop'], PDO::PARAM_INT);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
